@@ -1,0 +1,24 @@
+.Login {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 550px;
+    height: 430px;
+}
+
+.Title{ 
+    display: inline-flex;
+}
+
+.Title img {
+    margin-left: 20px;
+}
