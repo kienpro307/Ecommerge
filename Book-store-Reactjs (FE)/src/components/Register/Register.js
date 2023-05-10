@@ -74,7 +74,7 @@ export default function Register() {
 
           <Form.Control
             autoFocus
-            type="number"
+            type="tel"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />

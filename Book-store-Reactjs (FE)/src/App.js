@@ -14,6 +14,10 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import LoginUser from "./components/Login/LoginUser/LoginUser";
 import LoginAdmin from "./components/Login/LoginAdmin/LoginAdmin";
 import Register from "./components/Register/Register";
+import ListProductComponent from "./components/DashBoard/ListProductComponent";
+import CreateProductComponent from "./components/DashBoard/CreateProductComponent";
+import UpdateProductComponent from "./components/DashBoard/UpdateProductComponent";
+import ViewProductComponent from "./components/DashBoard/ViewProductComponent";
 
 const App = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -133,6 +137,19 @@ const App = () => {
               <Route path="/product-view/:id" exact>
                 <ProductView />
               </Route>
+              <Route
+                path="/products"
+                exact
+                component={ListProductComponent}
+              ></Route>
+              <Route
+                path="/products/add-product/:id"
+                render={(props) => <CreateProductComponent {...props} />}
+              />
+              <Route
+                path="/products/view-product/:id"
+                component={ViewProductComponent}
+              ></Route>
             </Switch>
           </div>
         </Router>
