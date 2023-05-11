@@ -1,36 +1,35 @@
 package com.educative.ecommerce.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Table(name = "cart")
+@Table(name = "carts")
 public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "created_date")
+    private String name;
+
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    @Column(name = "date")
     private Date createdDate;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private @NotNull User user;
 
-    private int quantity;
+    private Integer price;
 
+    @Column(name = "is_bought")
+    private @NotNull Integer isBought;
 
     public Cart() {
     }
@@ -43,6 +42,22 @@ public class Cart {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -51,12 +66,12 @@ public class Cart {
         this.createdDate = createdDate;
     }
 
-    public Product getProduct() {
-        return product;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public User getUser() {
@@ -67,11 +82,19 @@ public class Cart {
         this.user = user;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getIsBought() {
+        return isBought;
+    }
+
+    public void setIsBought(Integer isBought) {
+        this.isBought = isBought;
     }
 }

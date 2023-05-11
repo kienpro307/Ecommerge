@@ -24,12 +24,14 @@ public class ProductService {
         product.setName(productDto.getName());
         product.setCategory(category);
         product.setPrice(productDto.getPrice());
+        product.setAuthor(productDto.getAuthor());
         productRepository.save(product);
     }
 
     public ProductDto getProductDto(Product product) {
         ProductDto productDto = new ProductDto();
         productDto.setDescription(product.getDescription());
+        productDto.setAuthor(product.getAuthor());
         productDto.setImageURL(product.getImageURL());
         productDto.setName(product.getName());
 //        productDto.setCategoryId(product.getCategory().getId());
@@ -49,17 +51,19 @@ public class ProductService {
         return productDtos;
     }
 
-    public void updateProduct(ProductDto productDto, Integer productId) throws Exception {
+    public void updateProduct(ProductDto productDto, Integer productId, Category category) throws ProductNotExistsException {
         Optional<Product> optionalProduct = productRepository.findById(productId);
         // throw an exception if product does not exists
         if (!optionalProduct.isPresent()) {
-            throw new Exception("product not present");
+            throw new ProductNotExistsException("product not present");
         }
         Product product = optionalProduct.get();
         product.setDescription(productDto.getDescription());
+        product.setAuthor(productDto.getAuthor());
         product.setImageURL(productDto.getImageURL());
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
+        product.setCategory(category);
         productRepository.save(product);
     }
 
@@ -69,5 +73,15 @@ public class ProductService {
             throw new ProductNotExistsException("product id is invalid: " + productId);
         }
         return optionalProduct.get();
+    }
+
+    public void deleteProduct(Integer productId) throws ProductNotExistsException {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+        if (optionalProduct.isEmpty()) {
+            throw new ProductNotExistsException("product id is invalid: " + productId);
+        }
+
+        Product product = optionalProduct.get();
+        productRepository.delete(product);
     }
 }

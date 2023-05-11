@@ -3,13 +3,7 @@ package com.educative.ecommerce.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -21,16 +15,17 @@ public class Product {
     private Integer id;
 
     private @NotNull String name;
+    @Column(name = "image_url")
     private @NotNull String imageURL;
     private @NotNull double price;
-    private @NotNull String description;
-
+    private String description;
+    private String author;
 
     // Many to one relationship
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "category_id")
-    Category category;
+    private Category category;
 
 
     public String getName() {
@@ -79,5 +74,13 @@ public class Product {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

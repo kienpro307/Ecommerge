@@ -7,9 +7,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import { ShoppingCart } from "@material-ui/icons";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, NavLink } from "react-router-dom";
 import logo from "../../assets/circles.png";
 import useStyles from "./styles";
+import "./Navbar.css"
 
 const Navbar = ({ totalItems }) => {
   const classes = useStyles();
@@ -50,6 +51,33 @@ const Navbar = ({ totalItems }) => {
               </IconButton>
             </div>
           )}
+
+          <NavLink
+            exact
+            to="/login/admin"
+            className="sign"
+            activeClassName="active"
+          >
+            Quản trị viên
+          </NavLink>
+
+          <NavLink
+            exact
+            to="/login/user"
+            className="sign"
+            activeClassName="active"
+          >
+            Đăng nhập
+          </NavLink>
+
+          <NavLink
+            exact
+            to="/register"
+            className="sign sign-register"
+            activeClassName="active"
+          >
+            Đăng ký
+          </NavLink>
         </Toolbar>
       </AppBar>
     </div>

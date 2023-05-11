@@ -9,7 +9,8 @@ public class ProductDto {
     private @NotNull String name;
     private @NotNull String imageURL;
     private @NotNull double price;
-    private @NotNull String description;
+    private String description;
+    private String author;
     private @NotNull Integer categoryId;
 
 
@@ -62,5 +63,13 @@ public class ProductDto {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

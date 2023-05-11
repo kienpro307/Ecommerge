@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { CssBaseline } from "@material-ui/core";
-import { commerce } from "./lib/commerce";
 import Products from "./components/Products/Products";
 import Navbar from "./components/Navbar/Navbar";
 import Cart from "./components/Cart/Cart";
@@ -16,8 +15,8 @@ import LoginAdmin from "./components/Login/LoginAdmin/LoginAdmin";
 import Register from "./components/Register/Register";
 import ListProductComponent from "./components/DashBoard/ListProductComponent";
 import CreateProductComponent from "./components/DashBoard/CreateProductComponent";
-import UpdateProductComponent from "./components/DashBoard/UpdateProductComponent";
 import ViewProductComponent from "./components/DashBoard/ViewProductComponent";
+import OrderList from "./components/OrderList/OrderList";
 
 const App = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -150,6 +149,9 @@ const App = () => {
                 path="/products/view-product/:id"
                 component={ViewProductComponent}
               ></Route>
+              <Route path="/orders" exact>
+                <OrderList />
+              </Route>
             </Switch>
           </div>
         </Router>
