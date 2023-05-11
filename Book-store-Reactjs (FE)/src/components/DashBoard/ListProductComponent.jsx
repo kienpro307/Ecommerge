@@ -40,11 +40,6 @@ class ListProductComponent extends Component {
         return (
             <div className= "content">
                 <h2 className="text-center">Danh sách sản phẩm</h2>
-                
-                <button onClick={ () => this.editProduct(3)} className="btn btn-info">Cập nhật </button>
-                <button style={{marginLeft: "10px"}} onClick={ () => this.deleteProduct(1)} className="btn btn-danger">Xóa </button>
-                <button style={{marginLeft: "10px"}} onClick={ () => this.viewProduct(2)} className="btn btn-info">Xem </button>
-
                  <div className = "row">
                     <button className="btn btn-primary" onClick={this.addProduct}> Thêm sản phẩm</button>
                  </div>
