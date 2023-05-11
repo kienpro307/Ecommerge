@@ -1,6 +1,5 @@
 package com.educative.ecommerce.dto.cart;
 
-
 import com.educative.ecommerce.model.Cart;
 import com.educative.ecommerce.model.Product;
 
@@ -36,9 +35,4 @@ public class CartItemDto {
         this.product = product;
     }
 
-    public CartItemDto(Cart cart) {
-        this.id = cart.getId();
-        this.quantity = cart.getQuantity();
-        this.setProduct(cart.getProduct());
-    }
 }

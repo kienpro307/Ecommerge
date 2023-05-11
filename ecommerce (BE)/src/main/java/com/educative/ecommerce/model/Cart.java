@@ -1,70 +1,100 @@
 package com.educative.ecommerce.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
 @Table(name = "carts")
 public class Cart {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-   @Column(name = "created_date")
-   private Date createdDate;
+    private String name;
 
-   @OneToOne(targetEntity = Product.class, fetch = FetchType.EAGER)
-   @JoinColumn(name = "product_id")
-   private Product product;
+    @Column(name = "image_url")
+    private String imageUrl;
 
-   @ManyToOne
-   @JoinColumn(name = "user_id")
-   private User user;
+    @Column(name = "date")
+    private Date createdDate;
 
-   private int quantity;
+    private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private @NotNull User user;
 
-   public Cart() {
-   }
+    private Integer price;
 
-   public Integer getId() {
-      return id;
-   }
+    @Column(name = "is_bought")
+    private @NotNull Integer isBought;
 
-   public void setId(Integer id) {
-      this.id = id;
-   }
+    public Cart() {
+    }
 
-   public Date getCreatedDate() {
-      return createdDate;
-   }
+    public Integer getId() {
+        return id;
+    }
 
-   public void setCreatedDate(Date createdDate) {
-      this.createdDate = createdDate;
-   }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-   public Product getProduct() {
-      return product;
-   }
+    public String getName() {
+        return name;
+    }
 
-   public void setProduct(Product product) {
-      this.product = product;
-   }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-   public User getUser() {
-      return user;
-   }
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-   public void setUser(User user) {
-      this.user = user;
-   }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
-   public int getQuantity() {
-      return quantity;
-   }
+    public Date getCreatedDate() {
+        return createdDate;
+    }
 
-   public void setQuantity(int quantity) {
-      this.quantity = quantity;
-   }
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getIsBought() {
+        return isBought;
+    }
+
+    public void setIsBought(Integer isBought) {
+        this.isBought = isBought;
+    }
 }

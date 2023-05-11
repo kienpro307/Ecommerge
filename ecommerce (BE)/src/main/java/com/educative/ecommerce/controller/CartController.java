@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/cart")
 public class CartController {
@@ -33,36 +35,47 @@ public class CartController {
 
     // post cart api
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> addToCart(@RequestBody AddToCartDto addToCartDto,
+    public ResponseEntity<ApiResponse> addCart(@RequestBody CartDto cartDto,
                                                  @RequestParam("token") String token) {
         // authenticate the token
         authenticationService.authenticate(token);
 
-
         // find the user
-
         User user = authenticationService.getUser(token);
 
+        cartService.addCart(cartDto, user );
 
-        cartService.addToCart(addToCartDto, user );
-
-        return new ResponseEntity<>(new ApiResponse(true, "Added to cart"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ApiResponse(true, "Added cart successfully!"), HttpStatus.CREATED);
     }
 
-
-    // get all cart items for a user
-    @GetMapping("")
-    public ResponseEntity<CartDto> getCartItems(@RequestParam("token") String token) {
+    // get all cart items for a user, which is not bought.
+    @GetMapping("/cart-list")
+    public ResponseEntity<List<CartDto>> getCartItems(@RequestParam("token") String token) {
         // authenticate the token
         authenticationService.authenticate(token);
 
         // find the user
         User user = authenticationService.getUser(token);
 
-        // get cart items
+        // get cart items, isBought == false
 
-        CartDto cartDto = cartService.listCartItems(user);
-        return new ResponseEntity<>(cartDto, HttpStatus.OK);
+        List<CartDto> cartDtoList = cartService.listCartItems(user, false);
+        return new ResponseEntity<>(cartDtoList, HttpStatus.OK);
+    }
+
+    // get all cart items for a user, which is not bought.
+    @GetMapping("/order-list")
+    public ResponseEntity<List<CartDto>> getOrderItems(@RequestParam("token") String token) {
+        // authenticate the token
+        authenticationService.authenticate(token);
+
+        // find the user
+        User user = authenticationService.getUser(token);
+
+        // get order, isBought == true
+
+        List<CartDto> cartDtoList = cartService.listCartItems(user, true);
+        return new ResponseEntity<>(cartDtoList, HttpStatus.OK);
     }
 
     // delete a cart item for a user

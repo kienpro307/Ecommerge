@@ -1,11 +1,8 @@
 package com.educative.ecommerce.service;
 
-import com.educative.ecommerce.dto.cart.AddToCartDto;
 import com.educative.ecommerce.dto.cart.CartDto;
-import com.educative.ecommerce.dto.cart.CartItemDto;
 import com.educative.ecommerce.exceptions.CustomException;
 import com.educative.ecommerce.model.Cart;
-import com.educative.ecommerce.model.Product;
 import com.educative.ecommerce.model.User;
 import com.educative.ecommerce.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,38 +22,41 @@ public class CartService {
     @Autowired
     CartRepository cartRepository;
 
-    public void addToCart(AddToCartDto addToCartDto, User user) {
-
-        // validate if the product id is valid
-        Product product = productService.findById(addToCartDto.getProductId());
+    public void addCart(CartDto cartDto, User user) {
 
         Cart cart = new Cart();
-        cart.setProduct(product);
-        cart.setUser(user);
-        cart.setQuantity(addToCartDto.getQuantity());
+        cart.setName(cartDto.getName());
+        cart.setImageUrl(cartDto.getImageUrl());
         cart.setCreatedDate(new Date());
-
+        cart.setDescription(cartDto.getDescription());
+        cart.setUser(user);
+        cart.setPrice(cartDto.getPrice());
+        cart.setIsBought(cartDto.getIsBought());
 
         // save the cart
         cartRepository.save(cart);
 
     }
 
-    public CartDto listCartItems(User user) {
+    public List<CartDto> listCartItems(User user, boolean isBought) {
         List<Cart> cartList = cartRepository.findAllByUserOrderByCreatedDateDesc(user);
 
-        List<CartItemDto> cartItems = new ArrayList<>();
-        double totalCost = 0;
-        for (Cart cart: cartList) {
-            CartItemDto cartItemDto = new CartItemDto(cart);
-            totalCost += cartItemDto.getQuantity() * cart.getProduct().getPrice();
-            cartItems.add(cartItemDto);
-        }
+        List<CartDto> cartDtoList = new ArrayList<>();
 
-        CartDto cartDto = new CartDto();
-        cartDto.setTotalCost(totalCost);
-        cartDto.setCartItems(cartItems);
-        return  cartDto;
+        for (Cart cart : cartList)
+            if ((cart.getIsBought() == 0 && !isBought) || (isBought && cart.getIsBought() != 0)) {
+                CartDto cartDto = new CartDto();
+                cartDto.setId(cart.getId());
+                cartDto.setName(cart.getName());
+                cartDto.setImageUrl(cart.getImageUrl());
+                cartDto.setDescription(cart.getDescription());
+                cartDto.setPrice(cart.getPrice());
+                cartDto.setIsBought(cart.getIsBought());
+
+                cartDtoList.add(cartDto);
+            }
+
+        return cartDtoList;
     }
 
     public void deleteCartItem(Integer cartItemId, User user) {
@@ -75,7 +75,6 @@ public class CartService {
         }
 
         cartRepository.delete(cart);
-
 
     }
 }

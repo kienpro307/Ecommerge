@@ -1,27 +1,61 @@
 package com.educative.ecommerce.dto.cart;
 
-import java.util.List;
-
 public class CartDto {
-    private List<CartItemDto> cartItems;
-    private double totalCost;
+    private Integer id;
+    private String name;
+    private String imageUrl;
+    private String description;
+    private Integer price;
+    private Integer isBought;
 
     public CartDto() {
     }
 
-    public List<CartItemDto> getCartItems() {
-        return cartItems;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCartItems(List<CartItemDto> cartItems) {
-        this.cartItems = cartItems;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public double getTotalCost() {
-        return totalCost;
+    public String getName() {
+        return name;
     }
 
-    public void setTotalCost(double totalCost) {
-        this.totalCost = totalCost;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getIsBought() {
+        return isBought;
+    }
+
+    public void setIsBought(Integer isBought) {
+        this.isBought = isBought;
     }
 }
