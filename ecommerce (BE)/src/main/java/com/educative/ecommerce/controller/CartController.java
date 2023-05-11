@@ -51,7 +51,7 @@ public class CartController {
 
 
     // get all cart items for a user
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<CartDto> getCartItems(@RequestParam("token") String token) {
         // authenticate the token
         authenticationService.authenticate(token);

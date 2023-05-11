@@ -71,7 +71,7 @@ public class CartService {
         Cart cart = optionalCart.get();
 
         if (cart.getUser() != user) {
-            throw  new CustomException("cart item does not belong to user: " +cartItemId);
+            throw new CustomException("cart item does not belong to user: " + cartItemId);
         }
 
         cartRepository.delete(cart);

@@ -18,7 +18,8 @@ public class Product {
     @Column(name = "image_url")
     private @NotNull String imageURL;
     private @NotNull double price;
-    private @NotNull String description;
+    private String description;
+    private String author;
 
     // Many to one relationship
     @ManyToOne
@@ -73,5 +74,13 @@ public class Product {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

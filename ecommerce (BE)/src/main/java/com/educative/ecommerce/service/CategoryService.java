@@ -1,11 +1,13 @@
 package com.educative.ecommerce.service;
 
+import com.educative.ecommerce.exceptions.CustomException;
 import com.educative.ecommerce.model.Category;
 import com.educative.ecommerce.repository.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -31,5 +33,15 @@ public class CategoryService {
 
     public boolean findById(int categoryId) {
         return categoryRepo.findById(categoryId).isPresent();
+    }
+
+    public void deleteCategory(int categoryId) {
+        Optional<Category> optionalCategory = categoryRepo.findById(categoryId);
+        if (optionalCategory.isEmpty()) {
+            throw new CustomException("categoryId is invalid" + categoryId);
+        }
+
+        Category category = optionalCategory.get();
+        categoryRepo.delete(category);
     }
 }
