@@ -24,6 +24,7 @@ const App = () => {
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
+  const [token, setToken] = useState("");
 
   const fetchProducts = async () => {
     await fetch("http://localhost:8080/product/")
@@ -132,7 +133,7 @@ const App = () => {
                 />
               </Route>
               <Route exact path="/login/user">
-                <LoginUser />
+                <LoginUser setToken={setToken} />
               </Route>
               <Route exact path="/login/admin">
                 <LoginAdmin />

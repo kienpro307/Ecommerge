@@ -10,11 +10,13 @@ import logo from "../../../assets/circles.png";
 
 import axios from "axios";
 
-export default function LoginUser() {
+import { useHistory } from "react-router-dom";
+
+export default function LoginUser(props) {
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
-
+  const history = useHistory();
+  
   function validateForm() {
     return email.length > 0 && password.length > 0;
   }
@@ -31,6 +33,13 @@ export default function LoginUser() {
         password: password,
       });
       console.log(response.data); // Xử lý data trả về từ backend
+      if (response.data.token) {
+  
+        history.push("/");
+      } else {
+        alert("Đăng nhập không thành công");
+      }
+      props.setToken(response.data.token);
     } catch (error) {
       console.error(error);
     }

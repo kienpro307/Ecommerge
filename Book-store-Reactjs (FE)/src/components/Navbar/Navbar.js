@@ -10,7 +10,7 @@ import { ShoppingCart } from "@material-ui/icons";
 import { Link, useLocation, NavLink } from "react-router-dom";
 import logo from "../../assets/circles.png";
 import useStyles from "./styles";
-import "./Navbar.css"
+import "./Navbar.css";
 
 const Navbar = ({ totalItems }) => {
   const classes = useStyles();
@@ -37,7 +37,8 @@ const Navbar = ({ totalItems }) => {
           </Typography>
 
           <div className={classes.grow} />
-          {location.pathname === "/" && (
+          {(location.pathname === "/" ||
+            location.pathname.includes("/product-view/")) && (
             <div className={classes.button}>
               <IconButton
                 component={Link}
