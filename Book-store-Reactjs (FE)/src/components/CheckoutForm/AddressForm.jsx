@@ -3,7 +3,6 @@ import { InputLabel, Select, MenuItem, Button, Grid, Typography } from '@materia
 import { useForm, FormProvider } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
-import { commerce } from '../../lib/commerce';
 import FormInput from './CustomTextField';
 
 const AddressForm = ({ checkoutToken, test }) => {
@@ -16,24 +15,24 @@ const AddressForm = ({ checkoutToken, test }) => {
   const methods = useForm();
 
   const fetchShippingCountries = async (checkoutTokenId) => {
-    const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
+    // const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
 
-    setShippingCountries(countries);
-    setShippingCountry(Object.keys(countries)[0]);
+    // setShippingCountries(countries);
+    // setShippingCountry(Object.keys(countries)[0]);
   };
 
   const fetchSubdivisions = async (countryCode) => {
-    const { subdivisions } = await commerce.services.localeListSubdivisions(countryCode);
+    // const { subdivisions } = await commerce.services.localeListSubdivisions(countryCode);
 
-    setShippingSubdivisions(subdivisions);
-    setShippingSubdivision(Object.keys(subdivisions)[0]);
+    // setShippingSubdivisions(subdivisions);
+    // setShippingSubdivision(Object.keys(subdivisions)[0]);
   };
 
   const fetchShippingOptions = async (checkoutTokenId, country, stateProvince = null) => {
-    const options = await commerce.checkout.getShippingOptions(checkoutTokenId, { country, region: stateProvince });
+    // const options = await commerce.checkout.getShippingOptions(checkoutTokenId, { country, region: stateProvince });
 
-    setShippingOptions(options);
-    setShippingOption(options[0].id);
+    // setShippingOptions(options);
+    // setShippingOption(options[0].id);
   };
 
   useEffect(() => {

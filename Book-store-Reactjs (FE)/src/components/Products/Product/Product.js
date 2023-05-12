@@ -20,24 +20,18 @@ const Product = ({ product, onAddToCart }) => {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image={product.media.source}
+            image={product.imageURL}
             title={product.name}
           />
         </CardActionArea>
       </Link>
       <CardContent>
         <div className={classes.cardContent}>
-          <Typography variant="h8" noWrap>
-            {product.name}
+          <Typography variant="h9" noWrap>
+            <b>{product.name}</b>
           </Typography>
-          <Typography
-            variant="h8"
-            color="secondary"
-            style={{ marginTop: "20px" }}
-            noWrap
-          >
-            <b>{product.price.formatted}đ</b>
-          </Typography>
+
+          <b style={{ marginTop: "30px", color: "red" }}>{product.price}đ</b>
         </div>
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>

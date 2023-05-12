@@ -42,6 +42,12 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    @GetMapping("/{productId}")
+    public ResponseEntity<Product> getProduct(@PathVariable("productId") Integer productId) {
+        Product product = productService.findById(productId);
+        return ResponseEntity.ok(product);
+    }
+
     // create an api to edit the product
 
     @PostMapping("/update/{productId}")

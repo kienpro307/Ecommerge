@@ -1,27 +1,36 @@
 import React from "react";
-import { Container, Grid, Button, Typography } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  Button,
+  Typography,
+} from "@material-ui/core";
+import { AddShoppingCart } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { commerce } from "../../lib/commerce";
 import { useState, useEffect } from "react";
 import "./style.css";
+import { useLocation } from "react-router-dom";
 
 const createMarkup = (text) => {
   return { __html: text };
 };
 
 const ProductView = () => {
+  const location = useLocation();
+  const onAddToCart = location.state?.onAddToCart;
   const [product, setProduct] = useState({});
 
   const fetchProduct = async (id) => {
-    const response = await commerce.products.retrieve(id);
-    console.log({ response });
-    const { name, price, media, quantity, description } = response;
+    const response = await fetch(`http://localhost:8080/product/${id}`);
+    const data = await response.json();
+    const { name, author, description, imageURL, price } = data;
     setProduct({
+      id,
       name,
-      quantity,
+      author,
       description,
-      src: media.source,
-      price: price.formatted + "đ",
+      imageURL,
+      price: price + "đ",
     });
   };
 
@@ -34,7 +43,7 @@ const ProductView = () => {
     <Container className="product-view content">
       <Grid container>
         <Grid item xs={6} md={5} className="image-wrapper">
-          <img src={product.src} alt={product.name} />
+          <img src={product.imageURL} alt={product.name} />
         </Grid>
         <Grid item xs={6} md={7} className="text">
           <Typography variant="h2">
@@ -45,12 +54,27 @@ const ProductView = () => {
             variant="p"
             dangerouslySetInnerHTML={createMarkup(product.description)}
           />
-          <Typography variant="h3" color="secondary">
+          <Typography
+            variant="h3"
+            color="secondary"
+            style={{ marginTop: "70px", marginBottom: "10px" }}
+          >
             Giá: <b> {product.price} </b>{" "}
           </Typography>
           <br />
           <Grid container spacing={4}>
             <Grid item xs={12}>
+              <Button
+                variant="contained"
+                size="large"
+                className="custom-button"
+                endIcon={<AddShoppingCart />}
+                onClick={() => onAddToCart(product.id, 1)}
+                style={{ marginRight: "10px", backgroundColor: "red" }}
+              >
+                <b>Thêm Vào Giỏ Hàng</b>
+              </Button>
+
               <Button
                 size="large"
                 className="custom-button"
