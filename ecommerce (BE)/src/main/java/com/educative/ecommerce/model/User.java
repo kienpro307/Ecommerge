@@ -88,11 +88,13 @@ public class User {
         this.address = address;
     }
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password, Integer phoneNumber, String address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
     }
 
     public User() {

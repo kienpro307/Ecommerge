@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2023 at 02:13 PM
+-- Generation Time: May 12, 2023 at 05:30 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `bookstore`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_users`
+--
+
+CREATE TABLE `admin_users` (
+  `id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `token` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `admin_users`
+--
+
+INSERT INTO `admin_users` (`id`, `email`, `password`, `token`) VALUES
+(1, 'admin1@gmail.com', '202CB962AC59075B964B07152D234B70', '96d4ffb8-773b-4126-838b-700b0ee8de0f'),
+(2, 'tester1@gmail.com', '202CB962AC59075B964B07152D234B70', 'd0766914-2869-4a72-a3f3-2e0bbd8edd02');
 
 -- --------------------------------------------------------
 
@@ -183,7 +204,8 @@ CREATE TABLE `tokens` (
 
 INSERT INTO `tokens` (`id`, `token`, `created_date`, `user_id`) VALUES
 (5, '5adcfd3f-ad8c-4862-b7ae-b02be833f201', '2023-05-10 15:23:30', 3),
-(6, 'dec442b2-860d-405c-93d9-ab2daea30154', '2023-05-10 15:23:45', 4);
+(6, 'dec442b2-860d-405c-93d9-ab2daea30154', '2023-05-10 15:23:45', 4),
+(7, '2e554e58-470c-4db1-a592-caa4f3c70e15', '2023-05-12 12:20:43', 5);
 
 -- --------------------------------------------------------
 
@@ -207,7 +229,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `password`, `first_name`, `last_name`, `phone_number`, `address`) VALUES
 (3, 'admin', '202CB962AC59075B964B07152D234B70', 'Duc', 'Kien', 987654321, NULL),
-(4, 'test', '202CB962AC59075B964B07152D234B70', 'Khoi', 'Nguyen', 987123456, NULL);
+(4, 'test', '202CB962AC59075B964B07152D234B70', 'Khoi', 'Nguyen', 987123456, NULL),
+(5, 'test@gmail.com', '81DC9BDB52D04DC20036DBD8313ED055', 'Khoi', 'Nguyen', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -225,6 +248,13 @@ CREATE TABLE `wishlist` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin_users`
+--
+ALTER TABLE `admin_users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `carts`
@@ -271,6 +301,12 @@ ALTER TABLE `wishlist`
 --
 
 --
+-- AUTO_INCREMENT for table `admin_users`
+--
+ALTER TABLE `admin_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
@@ -292,13 +328,13 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -333,7 +369,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-
-

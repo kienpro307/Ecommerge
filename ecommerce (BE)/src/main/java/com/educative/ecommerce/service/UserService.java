@@ -48,7 +48,8 @@ public class UserService {
         }
 
         User user = new User(signupDto.getFirstName(), signupDto.getLastName(),
-                signupDto.getEmail(), encryptedpassword);
+                signupDto.getEmail(), encryptedpassword,
+                signupDto.getPhoneNumber(), signupDto.getAddress());
 
         userRepository.save(user);
 
@@ -60,17 +61,14 @@ public class UserService {
 
         authenticationService.saveConfirmationToken(authenticationToken);
 
-        ResponseDto responseDto = new ResponseDto("success", "user created succesfully");
-        return responseDto;
+        return new ResponseDto("success", "user created succesfully");
     }
 
     private String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(password.getBytes());
         byte[] digest = md.digest();
-        String hash = DatatypeConverter
-                .printHexBinary(digest).toUpperCase();
-        return hash;
+        return DatatypeConverter.printHexBinary(digest).toUpperCase();
     }
 
     public SignInReponseDto signIn(SignInDto signInDto) {
