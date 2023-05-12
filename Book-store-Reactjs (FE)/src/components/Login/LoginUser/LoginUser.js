@@ -5,7 +5,10 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import "../Login.css";
+
 import logo from "../../../assets/circles.png";
+
+import axios from "axios";
 
 export default function LoginUser() {
   const [email, setEmail] = useState("");
@@ -16,14 +19,27 @@ export default function LoginUser() {
     return email.length > 0 && password.length > 0;
   }
 
-  function handleSubmit(event) {
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  // }
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-  }
+    try {
+      const response = await axios.post("http://localhost:8080/user/signin", {
+        email: email,
+        password: password,
+      });
+      console.log(response.data); // Xử lý data trả về từ backend
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="Login">
       <div className="Title">
-        <h1 style={{ paddingBottom: "60px", paddingRight: "220px" }}>
+        <h1 style={{ paddingBottom: "40px", paddingRight: "220px" }}>
           Đăng nhập
         </h1>
         <img src={logo} height="40px" />
@@ -34,9 +50,10 @@ export default function LoginUser() {
 
           <Form.Control
             autoFocus
-            type="email"
+            type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            style={{ width: "300px" }}
           />
         </Form.Group>
 
@@ -57,7 +74,7 @@ export default function LoginUser() {
           disabled={!validateForm()}
           style={{ margin: "auto", paddingTop: "10px" }}
         >
-          Login
+          Đăng nhập
         </Button>
       </Form>
     </div>

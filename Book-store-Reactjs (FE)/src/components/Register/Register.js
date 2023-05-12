@@ -18,12 +18,16 @@ export default function Register() {
 
   const [phoneNumber, setPhoneNumber] = useState("");
 
+  const [address, setAddress] = useState("");
+
   function validateForm() {
     return (
       email.length > 0 &&
       password.length > 0 &&
       firstName.length > 0 &&
-      lastName.length > 0
+      lastName.length > 0 &&
+      phoneNumber.length > 0 &&
+      address.length > 0
     );
   }
 
@@ -34,9 +38,7 @@ export default function Register() {
   return (
     <div className="Register">
       <div className="Title">
-        <h1 style={{ paddingBottom: "60px", paddingRight: "220px" }}>
-          Đăng ký
-        </h1>
+        <h1 style={{ paddingRight: "220px" }}>Đăng ký</h1>
         <img src={logo} height="40px" />
       </div>
       <Form onSubmit={handleSubmit}>
@@ -52,6 +54,7 @@ export default function Register() {
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            style={{ width: "400px" }}
           />
         </Form.Group>
 
@@ -78,6 +81,20 @@ export default function Register() {
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
+          <Form.Group
+            size="lg"
+            controlId="address"
+            style={{ margin: "15px 0" }}
+          >
+            <Form.Label>Địa chỉ</Form.Label>
+
+            <Form.Control
+              autoFocus
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </Form.Group>
         </Form.Group>
         <Form.Group size="lg" controlId="email" style={{ margin: "15px 0" }}>
           <Form.Label>Tên đăng nhập (email)</Form.Label>
@@ -107,7 +124,7 @@ export default function Register() {
           disabled={!validateForm()}
           style={{ margin: "auto", paddingTop: "10px" }}
         >
-          Login
+          Đăng ký
         </Button>
       </Form>
     </div>

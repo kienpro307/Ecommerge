@@ -9,15 +9,12 @@ import { AddShoppingCart } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./style.css";
-import { useLocation } from "react-router-dom";
 
 const createMarkup = (text) => {
   return { __html: text };
 };
 
-const ProductView = () => {
-  const location = useLocation();
-  const onAddToCart = location.state?.onAddToCart;
+const ProductView = ({onAddToCart}) => {
   const [product, setProduct] = useState({});
 
   const fetchProduct = async (id) => {

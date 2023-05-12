@@ -23,7 +23,7 @@ export default function LoginAdmin() {
   return (
     <div className="Login">
       <div className="Title">
-        <h1 style={{ paddingBottom: "60px", paddingRight: "100px" }}>
+        <h1 style={{ paddingBottom: "40px", paddingRight: "100px" }}>
           Đăng nhập (Admin)
         </h1>
         <img src={logo} height="40px" />
@@ -34,9 +34,10 @@ export default function LoginAdmin() {
 
           <Form.Control
             autoFocus
-            type="email"
+            type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            style={{ width: "300px" }}
           />
         </Form.Group>
 
@@ -57,7 +58,7 @@ export default function LoginAdmin() {
           disabled={!validateForm()}
           style={{ margin: "auto", paddingTop: "10px" }}
         >
-          Login
+          Đăng nhập
         </Button>
       </Form>
     </div>

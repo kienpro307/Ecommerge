@@ -29,7 +29,7 @@ const App = () => {
     await fetch("http://localhost:8080/product/")
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data);  
+        setProducts(data);
       })
       .catch(console.log);
   };
@@ -109,6 +109,12 @@ const App = () => {
                   handleUpdateCartQty
                 />
               </Route>
+              <Route exact path="/product-view/:id">
+                <ProductView
+                  onAddToCart={handleAddToCart}
+                  handleUpdateCartQty
+                />
+              </Route>
               <Route exact path="/cart">
                 <Cart
                   cart={cart}
@@ -133,9 +139,6 @@ const App = () => {
               </Route>
               <Route exact path="/register">
                 <Register />
-              </Route>
-              <Route path="/product-view/:id" exact>
-                <ProductView />
               </Route>
               <Route
                 path="/products"
