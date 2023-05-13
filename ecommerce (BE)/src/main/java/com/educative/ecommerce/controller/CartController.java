@@ -3,6 +3,7 @@ package com.educative.ecommerce.controller;
 import com.educative.ecommerce.common.ApiResponse;
 import com.educative.ecommerce.dto.cart.AddToCartDto;
 import com.educative.ecommerce.dto.cart.CartDto;
+import com.educative.ecommerce.model.Product;
 import com.educative.ecommerce.model.User;
 import com.educative.ecommerce.service.AuthenticationService;
 import com.educative.ecommerce.service.CartService;
@@ -30,12 +31,15 @@ public class CartController {
     private CartService cartService;
 
     @Autowired
+    private ProductService productService;
+
+    @Autowired
     private AuthenticationService authenticationService;
 
 
     // post cart api
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> addCart(@RequestBody CartDto cartDto,
+    public ResponseEntity<ApiResponse> addCart(@RequestParam("profuctId") Integer productId,
                                                  @RequestParam("token") String token) {
         // authenticate the token
         authenticationService.authenticate(token);
@@ -43,7 +47,9 @@ public class CartController {
         // find the user
         User user = authenticationService.getUser(token);
 
-        cartService.addCart(cartDto, user );
+        Product product = productService.findById(productId);
+
+        cartService.addCart(product, user );
 
         return new ResponseEntity<>(new ApiResponse(true, "Added cart successfully!"), HttpStatus.CREATED);
     }

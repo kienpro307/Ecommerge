@@ -16,14 +16,10 @@ export default function LoginUser(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
-  
+
   function validateForm() {
     return email.length > 0 && password.length > 0;
   }
-
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  // }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -34,10 +30,9 @@ export default function LoginUser(props) {
       });
       console.log(response.data); // Xử lý data trả về từ backend
       if (response.data.token) {
-  
         history.push("/");
       } else {
-        alert("Đăng nhập không thành công");
+        alert("Đăng nhập không thành công, vui lòng kiểm tra lại");
       }
       props.setToken(response.data.token);
     } catch (error) {

@@ -5,7 +5,12 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import "./Register.css";
+
 import logo from "../../assets/circles.png";
+
+import axios from "axios";
+
+import { useHistory } from "react-router-dom";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -20,6 +25,8 @@ export default function Register() {
 
   const [address, setAddress] = useState("");
 
+  const history = useHistory();
+
   function validateForm() {
     return (
       email.length > 0 &&
@@ -31,9 +38,28 @@ export default function Register() {
     );
   }
 
-  function handleSubmit(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-  }
+    try {
+      const response = await axios.post("http://localhost:8080/user/signup", {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        phoneNumber: phoneNumber,
+        address: address,
+      });
+      console.log(response.data); // Xử lý data trả về từ backend
+      if (response.data.status === "success") {
+        alert("Đăng ký thành công");
+        history.push("/");
+      } else {
+        alert("Đăng ký không thành công");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="Register">
@@ -97,11 +123,11 @@ export default function Register() {
           </Form.Group>
         </Form.Group>
         <Form.Group size="lg" controlId="email" style={{ margin: "15px 0" }}>
-          <Form.Label>Tên đăng nhập (email)</Form.Label>
+          <Form.Label>Tên đăng nhập</Form.Label>
 
           <Form.Control
             autoFocus
-            type="email"
+            type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />

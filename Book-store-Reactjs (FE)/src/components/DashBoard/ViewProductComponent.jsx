@@ -39,7 +39,7 @@ class ViewProductComponent extends Component {
                         </div>
                         <div className = "row">
                             <label> Ảnh </label>
-                            <div> { this.state.product.imageUrl }</div>
+                            <div className="view-image"> <img src={this.state.product.imageURL} alt="Product Image" /></div>
                         </div>
                         <div className = "row">
                             <label> Giá </label>

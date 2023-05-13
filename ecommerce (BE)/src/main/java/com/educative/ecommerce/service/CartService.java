@@ -3,6 +3,7 @@ package com.educative.ecommerce.service;
 import com.educative.ecommerce.dto.cart.CartDto;
 import com.educative.ecommerce.exceptions.CustomException;
 import com.educative.ecommerce.model.Cart;
+import com.educative.ecommerce.model.Product;
 import com.educative.ecommerce.model.User;
 import com.educative.ecommerce.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +23,16 @@ public class CartService {
     @Autowired
     CartRepository cartRepository;
 
-    public void addCart(CartDto cartDto, User user) {
+    public void addCart(Product product, User user) {
 
         Cart cart = new Cart();
-        cart.setName(cartDto.getName());
-        cart.setImageUrl(cartDto.getImageUrl());
+        cart.setName(product.getName());
+        cart.setImageUrl(product.getImageURL());
         cart.setCreatedDate(new Date());
-        cart.setDescription(cartDto.getDescription());
+        cart.setDescription(product.getDescription());
         cart.setUser(user);
-        cart.setPrice(cartDto.getPrice());
-        cart.setIsBought(cartDto.getIsBought());
+        cart.setPrice(product.getPrice());
+        cart.setIsBought(0);
 
         // save the cart
         cartRepository.save(cart);

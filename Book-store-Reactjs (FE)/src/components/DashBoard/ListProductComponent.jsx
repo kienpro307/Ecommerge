@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ProductService from './ProductService'
 import "./DashBoard.css";
+import { CardMedia } from "@material-ui/core";
 
 class ListProductComponent extends Component {
     constructor(props) {
@@ -64,11 +65,11 @@ class ListProductComponent extends Component {
                                         <tr key = {product.id}>
                                              <td> {product.name} </td> 
                                              <td> {product.author} </td>  
-                                             <td> {product.description} </td>  
-                                             <td> {product.imageUrl}</td>
+                                             <td nowrap> {product.description} </td>  
+                                            <td> <a href= {product.imageURL}><img src={product.imageURL} alt="Product Image" /> </a></td>
                                              <td> {product.price}</td>
                                              <td>
-                                                 <button onClick={ () => this.editProduct(product.id)} className="btn btn-info">Cập nhật </button>
+                                                 <button style={{marginLeft: "10px"}} onClick={ () => this.editProduct(product.id)} className="btn btn-info">Cập nhật </button>
                                                  <button style={{marginLeft: "10px"}} onClick={ () => this.deleteProduct(product.id)} className="btn btn-danger">Xóa </button>
                                                  <button style={{marginLeft: "10px"}} onClick={ () => this.viewProduct(product.id)} className="btn btn-info">Xem </button>
                                              </td>

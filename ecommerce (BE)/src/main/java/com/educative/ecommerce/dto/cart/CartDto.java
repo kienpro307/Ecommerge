@@ -5,7 +5,7 @@ public class CartDto {
     private String name;
     private String imageUrl;
     private String description;
-    private Integer price;
+    private Double price;
     private Integer isBought;
 
     public CartDto() {
@@ -43,11 +43,11 @@ public class CartDto {
         this.description = description;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

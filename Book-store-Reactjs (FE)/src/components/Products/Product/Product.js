@@ -39,7 +39,7 @@ const Product = ({ product, onAddToCart }) => {
           variant="contained"
           className={classes.button}
           endIcon={<AddShoppingCart />}
-          onClick={() => onAddToCart(product.id, 1)}
+          onClick={() => onAddToCart(product.id)}
         >
           <b>Thêm Vào Giỏ Hàng</b>
         </Button>

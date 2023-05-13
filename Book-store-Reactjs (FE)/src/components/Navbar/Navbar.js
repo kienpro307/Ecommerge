@@ -12,9 +12,24 @@ import logo from "../../assets/circles.png";
 import useStyles from "./styles";
 import "./Navbar.css";
 
-const Navbar = ({ totalItems }) => {
+const Navbar = (props) => {
+  const {
+    totalItems,
+    token,
+    setToken,
+    tokenAdmin,
+    setTokenAdmin,
+    handleLogout,
+  } = props;
   const classes = useStyles();
   const location = useLocation();
+
+  const handleLogoutClick = () => {
+    setToken("");
+    setTokenAdmin("");
+    handleLogout();
+    console.log(">>> tokenAdmin1:", tokenAdmin);
+  };
 
   return (
     <div>
@@ -38,47 +53,81 @@ const Navbar = ({ totalItems }) => {
 
           <div className={classes.grow} />
           {(location.pathname === "/" ||
-            location.pathname.includes("/product-view/")) && (
-            <div className={classes.button}>
-              <IconButton
-                component={Link}
-                to="/cart"
-                aria-label="Show cart items"
-                color="inherit"
+            location.pathname.includes("/product-view/")) &&
+            token !== "" && (
+              <div className={classes.button}>
+                <IconButton
+                  component={Link}
+                  to="/cart"
+                  aria-label="Show cart items"
+                  color="inherit"
+                >
+                  <Badge badgeContent={totalItems} color="secondary">
+                    <ShoppingCart />
+                  </Badge>
+                </IconButton>
+              </div>
+            )}
+          {console.log(">>> tokenAdmin2:", tokenAdmin)}
+          {token === "" && tokenAdmin === "" ? (
+            <>
+              <NavLink
+                exact
+                to="/login/admin"
+                className="sign"
+                activeClassName="active"
               >
-                <Badge badgeContent={totalItems} color="secondary">
-                  <ShoppingCart />
-                </Badge>
-              </IconButton>
-            </div>
+                Quản trị viên
+              </NavLink>
+              <NavLink
+                exact
+                to="/login/user"
+                className="sign"
+                activeClassName="active"
+              >
+                Đăng nhập
+              </NavLink>
+              <NavLink
+                exact
+                to="/register"
+                className="sign sign-register"
+                activeClassName="active"
+              >
+                Đăng ký
+              </NavLink>
+            </>
+          ) : (
+            <>
+              {tokenAdmin !== "" ? (
+                <NavLink
+                  exact
+                  to="/products"
+                  className="sign"
+                  activeClassName="active"
+                >
+                  Quản trị viên
+                </NavLink>
+              ) : (
+                <NavLink
+                  exact
+                  to="/login/admin"
+                  className="sign"
+                  activeClassName="active"
+                >
+                  Quản trị viên
+                </NavLink>
+              )}
+              <NavLink
+                exact
+                to="/"
+                className="sign"
+                activeClassName="active"
+                onClick={handleLogoutClick}
+              >
+                Đăng xuất
+              </NavLink>
+            </>
           )}
-
-          <NavLink
-            exact
-            to="/login/admin"
-            className="sign"
-            activeClassName="active"
-          >
-            Quản trị viên
-          </NavLink>
-
-          <NavLink
-            exact
-            to="/login/user"
-            className="sign"
-            activeClassName="active"
-          >
-            Đăng nhập
-          </NavLink>
-
-          <NavLink
-            exact
-            to="/register"
-            className="sign sign-register"
-            activeClassName="active"
-          >
-            Đăng ký
-          </NavLink>
         </Toolbar>
       </AppBar>
     </div>

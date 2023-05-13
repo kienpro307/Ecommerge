@@ -50,7 +50,7 @@ class UpdateProductComponent extends Component {
     }
 
     changeImageUrlHandler= (event) => {
-        this.setState({imageUrl: event.target.value});
+        this.setState({imageURL: event.target.value});
     }
 
     changePriceHandler= (event) => {
@@ -96,8 +96,8 @@ class UpdateProductComponent extends Component {
                                         </div>
                                         <div className = "form-group">
                                             <label> Ảnh: </label>
-                                            <input placeholder="link ảnh" name="imageUrl" className="form-control" 
-                                                value={this.state.imageUrl} onChange={this.changeImageUrlHandler}/>
+                                            <input placeholder="link ảnh" name="imageURL" className="form-control" 
+                                                value={this.state.imageURL} onChange={this.changeImageUrlHandler}/>
                                         </div>
                                         <div className = "form-group">
                                             <label> Giá tiền: </label>

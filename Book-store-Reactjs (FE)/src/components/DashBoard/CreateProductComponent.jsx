@@ -10,13 +10,13 @@ class CreateProductComponent extends Component {
             // step 2
             id: this.props.match.params.id,
             name: '',
-            imageUrl: '',
+            imageURL: '',
             price: '',
             description: '',
             author: ''
         }
         this.changeNameHandler = this.changeNameHandler.bind(this);
-        this.changeImageUrlHandler = this.changeImageUrlHandler.bind(this);
+        this.changeImageURLHandler = this.changeImageURLHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeAuthorHandler = this.changeAuthorHandler.bind(this);
@@ -33,7 +33,7 @@ class CreateProductComponent extends Component {
             ProductService.getProductById(this.state.id).then( (res) =>{
                 let product = res.data;
                 this.setState({name: product.name,
-                    imageUrl: product.imageUrl,
+                    imageURL: product.imageURL,
                     price: product.price,
                     description: product.description,
                     author: product.author
@@ -44,7 +44,7 @@ class CreateProductComponent extends Component {
 
     saveOrUpdateProduct = (e) => {
         e.preventDefault();
-        let product = {name: this.state.name, imageUrl: this.state.imageUrl, price: this.state.price, description: this.state.description, author: this.state.author};
+        let product = {name: this.state.name, imageURL: this.state.imageURL, price: this.state.price, description: this.state.description, author: this.state.author};
         console.log('product => ' + JSON.stringify(product));
 
         // step 5
@@ -63,8 +63,8 @@ class CreateProductComponent extends Component {
         this.setState({name: event.target.value});
     }
 
-    changeImageUrlHandler= (event) => {
-        this.setState({imageUrl: event.target.value});
+    changeImageURLHandler= (event) => {
+        this.setState({imageURL: event.target.value});
     }
 
     changePriceHandler= (event) => {
@@ -119,8 +119,8 @@ class CreateProductComponent extends Component {
                                         </div>
                                         <div className = "form-group">
                                             <label> Ảnh: </label>
-                                            <input placeholder="Link ảnh..." name="imageUrl" className="form-control" 
-                                                value={this.state.imageUrl} onChange={this.changeImageUrlHandler}/>
+                                            <input placeholder="Link ảnh..." name="imageURL" className="form-control" 
+                                                value={this.state.imageURL} onChange={this.changeImageURLHandler}/>
                                         </div>
                                         <div className = "form-group">
                                             <label> Giá tiền: </label>

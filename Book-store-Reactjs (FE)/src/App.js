@@ -25,6 +25,7 @@ const App = () => {
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [token, setToken] = useState("");
+  const [tokenAdmin, setTokenAdmin] = useState("");
 
   const fetchProducts = async () => {
     await fetch("http://localhost:8080/product/")
@@ -36,7 +37,7 @@ const App = () => {
   };
 
   const fetchCart = async () => {
-    await fetch("http://localhost:8080/cart/cart-list")
+    await fetch(`http://localhost:8080/cart/cart-list?token=${token}`)
       .then((res) => res.json())
       .then((data) => {
         setCart(data);
@@ -44,9 +45,33 @@ const App = () => {
       .catch(console.log);
   };
 
-  const handleAddToCart = async (productId, quantity) => {
-    // const item = await commerce.cart.add(productId, quantity);
-    // setCart(item.cart);
+  // const handleAddToCart = async (productId) => {
+  //   const item = await commerce.cart.add(productId, quantity);
+  //   setCart(item.cart);
+  // };
+
+  const handleAddToCart = async (productId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/cart/add?productId=${productId}&token=${token}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.success === "true") {
+        console.log("Added product to cart successfully!");
+        alert("Thêm sản phẩm vào giỏ hàng thành công!");
+      } else {
+        console.log("Failed to add product to cart.");
+        alert("Thêm sản phẩm vào giỏ hàng thất bại!");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleUpdateCartQty = async (lineItemId, quantity) => {
@@ -67,6 +92,11 @@ const App = () => {
   const refreshCart = async () => {
     // const newCart = await commerce.cart.refresh();
     // setCart(newCart);
+  };
+
+  const handleLogout = () => {
+    setToken("");
+    setTokenAdmin("");
   };
 
   const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
@@ -100,7 +130,12 @@ const App = () => {
             <CssBaseline />
             <Navbar
               totalItems={cart.total_items}
+              token={token}
+              setToken={setToken}
+              tokenAdmin={tokenAdmin}
+              setTokenAdmin={setTokenAdmin}
               handleDrawerToggle={handleDrawerToggle}
+              handleLogout={handleLogout}
             />
             <Switch>
               <Route exact path="/">
@@ -119,6 +154,7 @@ const App = () => {
               <Route exact path="/cart">
                 <Cart
                   cart={cart}
+                  token={token}
                   onUpdateCartQty={handleUpdateCartQty}
                   onRemoveFromCart={handleRemoveFromCart}
                   onEmptyCart={handleEmptyCart}
@@ -136,7 +172,7 @@ const App = () => {
                 <LoginUser setToken={setToken} />
               </Route>
               <Route exact path="/login/admin">
-                <LoginAdmin />
+                <LoginAdmin setTokenAdmin={setTokenAdmin} />
               </Route>
               <Route exact path="/register">
                 <Register />
@@ -161,7 +197,17 @@ const App = () => {
           </div>
         </Router>
       </div>
-      <Footer />
+      <div
+        style={{
+          position: "relative",
+          bottom: "0",
+          width: "100%",
+          textAlign: "center",
+          lineHeight: "50px",
+        }}
+      >
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -7,18 +7,40 @@ import Button from "react-bootstrap/Button";
 import "../Login.css";
 import logo from "../../../assets/circles.png";
 
-export default function LoginAdmin() {
-  const [email, setEmail] = useState("");
+import axios from "axios";
 
+import { useHistory } from "react-router-dom";
+
+export default function LoginAdmin(props) {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
   }
 
-  function handleSubmit(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-  }
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/administrator/signin",
+        {
+          email: email,
+          password: password,
+        }
+      );
+      console.log(response.data); // Xử lý data trả về từ backend
+      if (response.data.token) {
+        history.push("/products");
+      } else {
+        alert("Đăng nhập không thành công, vui lòng kiểm tra lại");
+      }
+      props.setTokenAdmin(response.data.token);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="Login">

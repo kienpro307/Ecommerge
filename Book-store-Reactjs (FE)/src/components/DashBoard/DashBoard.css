@@ -21,6 +21,11 @@ thead tr {
     grid-template-columns: 2fr 2fr 3fr 2fr 1fr 1fr;
 }
 
+tbody tr {
+    display: grid;
+    grid-template-columns: 2fr 2fr 3fr 2fr 1fr 1fr;
+}
+
 .card-body>.row>label {
     font-weight: bold;
 }
@@ -39,4 +44,30 @@ label {
 
 .form-group {
     padding-top: 15px;
+}
+
+td img {
+    max-width: 100%;
+    /* Duy trì tỷ lệ khung hình của ảnh */
+    /* Giới hạn kích thước ảnh về chiều rộng tối đa của khung chứa ảnh */
+    height: auto;
+}
+
+.view-image img {
+    max-width: 400px;
+    height: auto;
+}
+
+td {
+    max-height: 255px;
+    /* giới hạn chiều cao của ô td */
+    overflow: hidden;
+    /* ẩn phần nội dung tràn ra ngoài */
+    text-overflow: ellipsis;
+    /* hiển thị dấu "..." khi nội dung quá dài */
+    /* ngăn chặn các từ trong nội dung bị cắt đứt */
+}
+
+table {
+    table-layout: fixed;
 }

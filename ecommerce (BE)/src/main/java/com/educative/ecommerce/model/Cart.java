@@ -26,7 +26,7 @@ public class Cart {
     @JoinColumn(name = "user_id")
     private @NotNull User user;
 
-    private Integer price;
+    private Double price;
 
     @Column(name = "is_bought")
     private @NotNull Integer isBought;
@@ -82,11 +82,11 @@ public class Cart {
         this.user = user;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
