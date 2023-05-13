@@ -39,7 +39,7 @@ public class CartController {
 
     // post cart api
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> addCart(@RequestParam("profuctId") Integer productId,
+    public ResponseEntity<ApiResponse> addCart(@RequestParam("productId") Integer productId,
                                                  @RequestParam("token") String token) {
         // authenticate the token
         authenticationService.authenticate(token);
@@ -49,7 +49,7 @@ public class CartController {
 
         Product product = productService.findById(productId);
 
-        cartService.addCart(product, user );
+        cartService.addCart(product, user);
 
         return new ResponseEntity<>(new ApiResponse(true, "Added cart successfully!"), HttpStatus.CREATED);
     }
