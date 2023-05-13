@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2023 at 05:30 PM
+-- Generation Time: May 13, 2023 at 10:28 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -51,10 +51,10 @@ INSERT INTO `admin_users` (`id`, `email`, `password`, `token`) VALUES
 CREATE TABLE `carts` (
   `id` int(11) NOT NULL,
   `date` datetime DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `image_url` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `image_url` text DEFAULT NULL,
   `is_bought` int(11) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` text DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -65,7 +65,8 @@ CREATE TABLE `carts` (
 
 INSERT INTO `carts` (`id`, `date`, `description`, `image_url`, `is_bought`, `name`, `price`, `user_id`) VALUES
 (1, '2023-05-11 18:02:35', 'my desc', 'https://t3.ftcdn.net/jpg/00/92/53/56/360_F_92535664_IvFsQeHjBzfE6sD4VHdO8u5OHUSc6yHF.jpg', 0, 'cart 1', 69000, 4),
-(3, '2023-05-11 18:03:42', 'foo description', 'https://t3.ftcdn.net/jpg/00/92/53/56/360_F_92535664_IvFsQeHjBzfE6sD4VHdO8u5OHUSc6yHF.jpg', 1, 'cart bar', 69000, 3);
+(3, '2023-05-11 18:03:42', 'foo description', 'https://t3.ftcdn.net/jpg/00/92/53/56/360_F_92535664_IvFsQeHjBzfE6sD4VHdO8u5OHUSc6yHF.jpg', 1, 'cart bar', 69000, 3),
+(4, '2023-05-13 15:24:45', 'Giao Tiếp Chuyên Nghiệp Để Bán Hàng Thành Công (Tái Bản)', 'https://salt.tikicdn.com/cache/w1200/ts/product/ea/28/aa/defa2be520a2264361365901ee386822.jpg', 0, 'Sách: Giao Tiếp Chuyên Nghiệp Để Bán Hàng Thành Công (Tái Bản)', 110000, 3);
 
 -- --------------------------------------------------------
 
@@ -183,7 +184,8 @@ INSERT INTO `products` (`id`, `name`, `image_url`, `price`, `description`, `auth
 (258, 'Đọc Sách Cộng Hưởng', 'https://salt.tikicdn.com/cache/w1200/ts/product/de/1f/e3/368d77eb57d9a8ae2da5577074d328a5.jpg', 79000, 'Đọc Sách Cộng Hưởng', 'Watanabe Yasuhiro', 4),
 (259, 'Sách IKIGAI - Chất Nhật Trong Từng Khoảnh khắc', 'https://salt.tikicdn.com/cache/w1200/ts/product/6e/74/3f/e8fc8c9ab71f15006a4e039fecc73e07.jpg', 61000, 'Ikigai là một khái niệm đã tồn tại từ rất lâu trong truyền thống văn hóa Nhật Bản. Đây là khái niệm về niềm vui trong cuộc sống thường nhật, hay nói cách khác là lý do mà bạn thức dậy vào mỗi sáng.', 'Yukari Mitsuhashi', 7),
 (260, 'Sách - Xé vài trang thanh xuân, đổi lấy một bản thân nỗ lực', 'https://salt.tikicdn.com/cache/w1200/ts/product/0f/73/50/bf9237d6e89a6982250e1e9e2cd09a68.jpg', 197000, 'GIỚI THIỆU SÁCH:', 'Unknown', 4),
-(261, 'Tủ Sách Tâm Linh Thế Kỷ - Giữa Bóng Tối và Ánh Sáng', 'https://salt.tikicdn.com/cache/w1200/ts/product/2f/86/73/af43f8b11c2578f78ac3eb7da190e7f8.jpg', 111000, 'Bằng giọng văn vừa trí tuệ vừa truyền cảm hứng, Giữa Bóng Tối Và Ánh Sáng khám phá những trăn trở của cuộc sống hiện đại, của trí óc đã lao động quá mức, và của trái tim đầy thương tổn.', 'Joan Chittister', 7);
+(261, 'Tủ Sách Tâm Linh Thế Kỷ - Giữa Bóng Tối và Ánh Sáng', 'https://salt.tikicdn.com/cache/w1200/ts/product/2f/86/73/af43f8b11c2578f78ac3eb7da190e7f8.jpg', 111000, 'Bằng giọng văn vừa trí tuệ vừa truyền cảm hứng, Giữa Bóng Tối Và Ánh Sáng khám phá những trăn trở của cuộc sống hiện đại, của trí óc đã lao động quá mức, và của trái tim đầy thương tổn.', 'Joan Chittister', 7),
+(263, 'my product', 'https://images.freeimages.com/fic/images/icons/1741/170_dock/256/foobar.png', 123000, 'product description', 'anonymous', 9);
 
 -- --------------------------------------------------------
 
@@ -205,7 +207,8 @@ CREATE TABLE `tokens` (
 INSERT INTO `tokens` (`id`, `token`, `created_date`, `user_id`) VALUES
 (5, '5adcfd3f-ad8c-4862-b7ae-b02be833f201', '2023-05-10 15:23:30', 3),
 (6, 'dec442b2-860d-405c-93d9-ab2daea30154', '2023-05-10 15:23:45', 4),
-(7, '2e554e58-470c-4db1-a592-caa4f3c70e15', '2023-05-12 12:20:43', 5);
+(10, '999ecf71-638c-4bf1-b9ea-d68fa383d08c', '2023-05-12 15:49:34', 8),
+(11, '90256ad7-0f87-4f3b-95af-48ca3f0adc4c', '2023-05-12 15:50:13', 9);
 
 -- --------------------------------------------------------
 
@@ -230,7 +233,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `email`, `password`, `first_name`, `last_name`, `phone_number`, `address`) VALUES
 (3, 'admin', '202CB962AC59075B964B07152D234B70', 'Duc', 'Kien', 987654321, NULL),
 (4, 'test', '202CB962AC59075B964B07152D234B70', 'Khoi', 'Nguyen', 987123456, NULL),
-(5, 'test@gmail.com', '81DC9BDB52D04DC20036DBD8313ED055', 'Khoi', 'Nguyen', NULL, NULL);
+(8, 'test@gmail.com', '81DC9BDB52D04DC20036DBD8313ED055', 'Khoi', 'Nguyen', 987123456, 'some where in Ha Noi'),
+(9, 'admin@gmail.com', '81DC9BDB52D04DC20036DBD8313ED055', 'Duc', 'Kien', 978645312, 'some place in Ha Noi');
 
 -- --------------------------------------------------------
 
@@ -310,7 +314,7 @@ ALTER TABLE `admin_users`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -322,19 +326,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=264;
 
 --
 -- AUTO_INCREMENT for table `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
