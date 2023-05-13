@@ -15,10 +15,14 @@ class ListProductComponent extends Component {
         this.deleteProduct = this.deleteProduct.bind(this);
     }
 
-    deleteProduct(id){
-        ProductService.deleteProduct(id).then( res => {
+    deleteProduct(id) {
+        const confirmed = window.confirm("Bạn có muốn xóa sản phẩm này không?");
+         if (confirmed) {
+         ProductService.deleteProduct(id).then( res => {
             this.setState({products: this.state.products.filter(product => product.id !== id)});
         });
+    }
+       
     }
     viewProduct(id){
         this.props.history.push(`/products/view-product/${id}`);

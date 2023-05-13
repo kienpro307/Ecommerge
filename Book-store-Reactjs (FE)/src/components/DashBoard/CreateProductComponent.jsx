@@ -13,13 +13,15 @@ class CreateProductComponent extends Component {
             imageURL: '',
             price: '',
             description: '',
-            author: ''
+            author: '',
+            categoryId: ''
         }
         this.changeNameHandler = this.changeNameHandler.bind(this);
         this.changeImageURLHandler = this.changeImageURLHandler.bind(this);
-        this.changePriceHandler = this.changePriceHandler.bind(this);
+        this.changePriceHandler = this.changePriceHandler.bind(this);   
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeAuthorHandler = this.changeAuthorHandler.bind(this);
+        this.changeCategoryIdHandler = this.changeCategoryIdHandler.bind(this);
         this.saveOrUpdateProduct = this.saveOrUpdateProduct.bind(this);
     }
 
@@ -36,7 +38,8 @@ class CreateProductComponent extends Component {
                     imageURL: product.imageURL,
                     price: product.price,
                     description: product.description,
-                    author: product.author
+                    author: product.author,
+                    categoryId: product.categoryId
                 });
             });
         }        
@@ -44,7 +47,7 @@ class CreateProductComponent extends Component {
 
     saveOrUpdateProduct = (e) => {
         e.preventDefault();
-        let product = {name: this.state.name, imageURL: this.state.imageURL, price: this.state.price, description: this.state.description, author: this.state.author};
+        let product = {name: this.state.name, imageURL: this.state.imageURL, price: this.state.price, description: this.state.description, author: this.state.author, categoryId: this.state.categoryId};
         console.log('product => ' + JSON.stringify(product));
 
         // step 5
@@ -79,6 +82,10 @@ class CreateProductComponent extends Component {
         this.setState({author: event.target.value});
     }
 
+    changeCategoryIdHandler= (event) => {
+        this.setState({categoryId: event.target.value});
+    }
+    
     cancel(){
         this.props.history.push('/products');
     }
@@ -116,6 +123,11 @@ class CreateProductComponent extends Component {
                                             <label> Mô tả: </label>
                                             <input placeholder="Mô tả..." name="description" className="form-control" 
                                                 value={this.state.description} onChange={this.changeDescriptionHandler}/>
+                                        </div>
+                                        <div className = "form-group">
+                                            <label> Thể loại </label>
+                                            <input placeholder="Thể loại..." name="description" className="form-control" 
+                                                value={this.state.categoryId} onChange={this.changeCategoryIdHandler}/>
                                         </div>
                                         <div className = "form-group">
                                             <label> Ảnh: </label>
