@@ -99,6 +99,17 @@ public class CartService {
         cartRepository.delete(cart);
     }
 
+    public void deleteCartOnAdmin(Integer cartId) {
+        Optional<Cart> optionalCart = cartRepository.findById(cartId);
+
+        if (!optionalCart.isPresent()) {
+            throw new CustomException("cart item id is invalid: " + cartId);
+        }
+
+        Cart cart = optionalCart.get();
+        cartRepository.delete(cart);
+    }
+
     public void checkoutCart(Integer cartId, User user) {
         Optional<Cart> optionalCart = cartRepository.findById(cartId);
 

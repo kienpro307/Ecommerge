@@ -108,7 +108,6 @@ public class CartController {
     @DeleteMapping("/delete/{cartItemId}")
     public ResponseEntity<ApiResponse> deleteCartItem(@PathVariable("cartItemId") Integer itemId,
                                                       @RequestParam("token") String token) {
-
         // authenticate the token
         authenticationService.authenticate(token);
 
@@ -116,6 +115,15 @@ public class CartController {
         User user = authenticationService.getUser(token);
 
         cartService.deleteCartItem(itemId, user);
+
+        return new ResponseEntity<>(new ApiResponse(true, "Item has been removed"), HttpStatus.OK);
+
+    }
+
+    @DeleteMapping("/admin-delete/{cartId}")
+    public ResponseEntity<ApiResponse> deleteCartByAdmin(@PathVariable("cartId") Integer cartId) {
+
+        cartService.deleteCartOnAdmin(cartId);
 
         return new ResponseEntity<>(new ApiResponse(true, "Item has been removed"), HttpStatus.OK);
 
