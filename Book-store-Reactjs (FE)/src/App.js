@@ -45,11 +45,6 @@ const App = () => {
       .catch(console.log);
   };
 
-  // const handleAddToCart = async (productId) => {
-  //   const item = await commerce.cart.add(productId, quantity);
-  //   setCart(item.cart);
-  // };
-
   const handleAddToCart = async (productId) => {
     try {
       const response = await fetch(
@@ -61,13 +56,13 @@ const App = () => {
           },
         }
       );
-
-      if (response.success === "true") {
-        console.log("Added product to cart successfully!");
-        alert("Thêm sản phẩm vào giỏ hàng thành công!");
-      } else {
-        console.log("Failed to add product to cart.");
-        alert("Thêm sản phẩm vào giỏ hàng thất bại!");
+      console.log(">>> success", response);
+      if (token === "") {
+        alert(
+          "Thêm sản phẩm vào giỏ hàng thất bại!" +
+            "\n" +
+            "Vui lòng đăng nhập để có thể đặt hàng"
+        );
       }
     } catch (error) {
       console.error(error);
@@ -79,10 +74,7 @@ const App = () => {
     // setCart(response.cart);
   };
 
-  const handleRemoveFromCart = async (lineItemId) => {
-    // const response = await commerce.cart.remove(lineItemId);
-    // setCart(response.cart);
-  };
+  const handleRemoveFromCart = async (lineItemId) => {};
 
   const handleEmptyCart = async () => {
     // const response = await commerce.cart.empty();
@@ -205,9 +197,7 @@ const App = () => {
           textAlign: "center",
           lineHeight: "50px",
         }}
-      >
-        <Footer />
-      </div>
+      ></div>
     </div>
   );
 };
