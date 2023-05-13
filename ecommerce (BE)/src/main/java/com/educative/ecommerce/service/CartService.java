@@ -81,6 +81,26 @@ public class CartService {
         return cartItemDtoList;
     }
 
+    public List<CartItemDto> getAllCartsBought() {
+        List<Cart> cartList = cartRepository.findAllByIsBought(1);
+
+        List<CartItemDto> cartItemDtoList = new ArrayList<>();
+        for (Cart cart: cartList) {
+            CartItemDto cartItemDto = new CartItemDto();
+            cartItemDto.setId(cart.getId());
+            cartItemDto.setName(cart.getName());
+            cartItemDto.setImageUrl(cart.getImageUrl());
+            cartItemDto.setDescription(cart.getDescription());
+            cartItemDto.setPrice(cart.getPrice());
+            cartItemDto.setIsBought(cart.getIsBought());
+            cartItemDto.setUserId(cart.getUser().getId());
+
+            cartItemDtoList.add(cartItemDto);
+        }
+
+        return cartItemDtoList;
+    }
+
     public void deleteCartItem(Integer cartItemId, User user) {
         // the item id belongs to user
 
@@ -109,21 +129,14 @@ public class CartService {
         Cart cart = optionalCart.get();
         cartRepository.delete(cart);
     }
-
-    public void checkoutCart(Integer cartId, User user) {
-        Optional<Cart> optionalCart = cartRepository.findById(cartId);
-
-        if (!optionalCart.isPresent()) {
-            throw new CustomException("cart item id is invalid: " + cartId);
+    public void checkoutCart(User user) {
+        List<Cart> cartList = cartRepository.findAllByUser(user);
+        for (Cart cart : cartList) {
+            if (cart.getIsBought() == 0) {
+                cart.setIsBought(1);
+            }
         }
-
-        Cart cart = optionalCart.get();
-
-        if (cart.getUser() != user) {
-            throw new CustomException("cart item does not belong to user: " + cartId);
-        }
-
-        cart.setIsBought(1);
-        cartRepository.save(cart);
+        cartRepository.saveAll(cartList);
     }
+
 }

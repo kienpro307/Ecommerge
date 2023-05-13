@@ -71,6 +71,7 @@ const App = () => {
         );
       } else {
         alert("Thêm vào giỏ hàng thành công!");
+        fetchCart();
       }
     } catch (error) {
       console.error(error);
@@ -89,22 +90,24 @@ const App = () => {
     }
   };
 
+  const handleCheckOut = () => {
+    const confirmed = window.confirm("Bạn xác nhận muốn mua hàng?");
+    if (confirmed) {
+      axios
+        .post(`http://localhost:8080/cart/checkout-cart/?token=${token}`)
+        .then((response) => {
+          // Gọi lại hàm fetchCart ở đây để cập nhật thông tin giỏ hàng
+          fetchCart();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
   const handleLogout = () => {
     setToken("");
     setTokenAdmin("");
-  };
-
-  const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
-    // try {
-    //   const incomingOrder = await commerce.checkout.capture(
-    //     checkoutTokenId,
-    //     newOrder
-    //   );
-    //   setOrder(incomingOrder);
-    //   refreshCart();
-    // } catch (error) {
-    //   setErrorMessage(error.data.error.message);
-    // }
   };
 
   useEffect(() => {
@@ -151,16 +154,17 @@ const App = () => {
                   cart={cart}
                   token={token}
                   onRemoveFromCart={handleRemoveFromCart}
+                  onCheckOut={handleCheckOut}
                 />
               </Route>
-              <Route path="/checkout" exact>
+              {/* <Route path="/checkout" exact>
                 <Checkout
                   cart={cart}
                   order={order}
                   onCaptureCheckout={handleCaptureCheckout}
                   error={errorMessage}
                 />
-              </Route>
+              </Route> */}
               <Route exact path="/login/user">
                 <LoginUser setToken={setToken} />
               </Route>

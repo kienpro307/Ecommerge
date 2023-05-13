@@ -85,21 +85,20 @@ public class CartController {
     }
 
     @GetMapping("/all-carts")
-    public ResponseEntity<List<CartItemDto>> getAllCarts() {
+    public ResponseEntity<List<CartItemDto>> getAllCartsBought() {
 
-        List<CartItemDto> cartItemDtoList = cartService.getAllCarts();
+        List<CartItemDto> cartItemDtoList = cartService.getAllCartsBought();
         return new ResponseEntity<>(cartItemDtoList, HttpStatus.OK);
     }
 
-    @PostMapping("/checkout-cart/{cartItemId}")
-    public ResponseEntity<ApiResponse> checkoutCart(@PathVariable("cartItemId") Integer itemId,
-                                                    @RequestParam("token") String token) {
+    @PostMapping("/checkout-cart/")
+    public ResponseEntity<ApiResponse> checkoutCart(@RequestParam("token") String token) {
         authenticationService.authenticate(token);
         User user = authenticationService.getUser(token);
 
-        cartService.checkoutCart(itemId, user);
+        cartService.checkoutCart(user);
 
-        return new ResponseEntity<>(new ApiResponse(true, "This cart has been changed to an order, which will be bought!"),
+        return new ResponseEntity<>(new ApiResponse(true, "Carts has been changed to an order, which will be bought!"),
                 HttpStatus.OK);
     }
 

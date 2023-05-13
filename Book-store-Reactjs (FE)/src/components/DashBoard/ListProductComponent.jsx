@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ProductService from './ProductService'
 import "./DashBoard.css";
 import { CardMedia } from "@material-ui/core";
+import { Link } from 'react-router-dom';
 
 class ListProductComponent extends Component {
     constructor(props) {
@@ -46,6 +47,9 @@ class ListProductComponent extends Component {
             <div className= "content">
                 <h2 className="text-center">Danh sách sản phẩm</h2>
                  <div className = "row">
+                   <button className="btn btn-primary" onClick={() => window.location.href='/orders'}>Danh sách đơn hàng</button>
+                </div>
+                <div className = "row">
                     <button className="btn btn-primary" onClick={this.addProduct}> Thêm sản phẩm</button>
                  </div>
                  <br></br>

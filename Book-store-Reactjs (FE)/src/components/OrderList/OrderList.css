@@ -18,7 +18,12 @@
 
 .row-order thead tr {
     display: grid;
-    grid-template-columns: 2fr 2fr 1.5fr 3fr 1.5fr 1fr 1fr;
+    grid-template-columns: 2fr 2fr 3fr 1.5fr 1fr 1fr;
+}
+
+.row-order tbody tr {
+    display: grid;
+    grid-template-columns: 2fr 2fr 3fr 1.5fr 1fr 1fr;
 }
 
 .card-body>.row>label {

@@ -126,7 +126,7 @@ class CreateProductComponent extends Component {
                                         </div>
                                         <div className = "form-group">
                                             <label> Thể loại </label>
-                                            <input placeholder="Thể loại..." name="description" className="form-control" 
+                                            <input placeholder="Thể loại..." name="caegoryId" className="form-control" 
                                                 value={this.state.categoryId} onChange={this.changeCategoryIdHandler}/>
                                         </div>
                                         <div className = "form-group">

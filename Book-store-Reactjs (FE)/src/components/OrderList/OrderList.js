@@ -37,9 +37,8 @@ class OrderList extends Component {
               <tr>
                 <th> Tên sách</th>
                 <th> Ảnh sản phẩm</th>
-                <th> Thời gian </th>
                 <th> Ghi chú</th>
-                <th> Người đặt</th>
+                <th> Mã khách hàng</th>
                 <th> Giá</th>
                 <th> Thao tác</th>
               </tr>
@@ -48,18 +47,18 @@ class OrderList extends Component {
               {this.state.orders.map((order) => (
                 <tr key={order.id}>
                   <td> {order.name} </td>
-                  <td> {order.imageUrl} </td>
-                  <td> {order.date} </td>
+                  <td>
+                    <img src={order.imageUrl} alt={order.name} />
+                  </td>
                   <td> {order.description}</td>
                   <td> {order.user}</td>
                   <td> {order.price}</td>
                   <td>
                     <button
-                      style={{ marginLeft: "10px" }}
                       onClick={() => this.deleteOrder(order.id)}
                       className="btn btn-success"
                     >
-                      Hoàn thành{" "}
+                      Xong
                     </button>
                   </td>
                 </tr>

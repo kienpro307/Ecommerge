@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import CartItem from "./CartItem/CartItem";
 import useStyles from "./styles";
 
-const Cart = ({ cart, onRemoveFromCart }) => {
+const Cart = ({ cart, onRemoveFromCart, onCheckOut }) => {
   const classes = useStyles();
 
   const renderEmptyCart = () => (
@@ -36,12 +36,11 @@ const Cart = ({ cart, onRemoveFromCart }) => {
         <div>
           <Button
             className={classes.checkoutButton}
-            component={Link}
-            to="/checkout"
             size="large"
             type="button"
             variant="contained"
             style={{ backgroundColor: "#24729e" }}
+            onClick={onCheckOut}
           >
             Thanh toán
           </Button>
