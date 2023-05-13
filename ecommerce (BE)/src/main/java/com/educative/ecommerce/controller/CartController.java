@@ -1,8 +1,8 @@
 package com.educative.ecommerce.controller;
 
 import com.educative.ecommerce.common.ApiResponse;
-import com.educative.ecommerce.dto.cart.AddToCartDto;
 import com.educative.ecommerce.dto.cart.CartDto;
+import com.educative.ecommerce.dto.cart.CartItemDto;
 import com.educative.ecommerce.model.Product;
 import com.educative.ecommerce.model.User;
 import com.educative.ecommerce.service.AuthenticationService;
@@ -69,7 +69,7 @@ public class CartController {
         return new ResponseEntity<>(cartDtoList, HttpStatus.OK);
     }
 
-    // get all cart items for a user, which is not bought.
+    // get all cart items for a user, which is bought.
     @GetMapping("/order-list")
     public ResponseEntity<List<CartDto>> getOrderItems(@RequestParam("token") String token) {
         // authenticate the token
@@ -82,6 +82,25 @@ public class CartController {
 
         List<CartDto> cartDtoList = cartService.listCartItems(user, true);
         return new ResponseEntity<>(cartDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/all-carts")
+    public ResponseEntity<List<CartItemDto>> getAllCarts() {
+
+        List<CartItemDto> cartItemDtoList = cartService.getAllCarts();
+        return new ResponseEntity<>(cartItemDtoList, HttpStatus.OK);
+    }
+
+    @PostMapping("/checkout-cart/{cartItemId}")
+    public ResponseEntity<ApiResponse> checkoutCart(@PathVariable("cartItemId") Integer itemId,
+                                                    @RequestParam("token") String token) {
+        authenticationService.authenticate(token);
+        User user = authenticationService.getUser(token);
+
+        cartService.checkoutCart(itemId, user);
+
+        return new ResponseEntity<>(new ApiResponse(true, "This cart has been changed to an order, which will be bought!"),
+                HttpStatus.OK);
     }
 
     // delete a cart item for a user

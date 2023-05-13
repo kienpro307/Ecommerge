@@ -1,6 +1,7 @@
 package com.educative.ecommerce.service;
 
 import com.educative.ecommerce.dto.cart.CartDto;
+import com.educative.ecommerce.dto.cart.CartItemDto;
 import com.educative.ecommerce.exceptions.CustomException;
 import com.educative.ecommerce.model.Cart;
 import com.educative.ecommerce.model.Product;
@@ -60,12 +61,32 @@ public class CartService {
         return cartDtoList;
     }
 
+    public List<CartItemDto> getAllCarts() {
+        List<Cart> cartList = cartRepository.findAll();
+
+        List<CartItemDto> cartItemDtoList = new ArrayList<>();
+        for (Cart cart: cartList) {
+            CartItemDto cartItemDto = new CartItemDto();
+            cartItemDto.setId(cart.getId());
+            cartItemDto.setName(cart.getName());
+            cartItemDto.setImageUrl(cart.getImageUrl());
+            cartItemDto.setDescription(cart.getDescription());
+            cartItemDto.setPrice(cart.getPrice());
+            cartItemDto.setIsBought(cart.getIsBought());
+            cartItemDto.setUserId(cart.getUser().getId());
+
+            cartItemDtoList.add(cartItemDto);
+        }
+
+        return cartItemDtoList;
+    }
+
     public void deleteCartItem(Integer cartItemId, User user) {
         // the item id belongs to user
 
         Optional<Cart> optionalCart = cartRepository.findById(cartItemId);
 
-        if (optionalCart.isEmpty()) {
+        if (!optionalCart.isPresent()) {
             throw new CustomException("cart item id is invalid: " + cartItemId);
         }
 
@@ -76,6 +97,22 @@ public class CartService {
         }
 
         cartRepository.delete(cart);
+    }
 
+    public void checkoutCart(Integer cartId, User user) {
+        Optional<Cart> optionalCart = cartRepository.findById(cartId);
+
+        if (!optionalCart.isPresent()) {
+            throw new CustomException("cart item id is invalid: " + cartId);
+        }
+
+        Cart cart = optionalCart.get();
+
+        if (cart.getUser() != user) {
+            throw new CustomException("cart item does not belong to user: " + cartId);
+        }
+
+        cart.setIsBought(1);
+        cartRepository.save(cart);
     }
 }

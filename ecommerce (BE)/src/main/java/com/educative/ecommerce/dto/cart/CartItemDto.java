@@ -1,38 +1,13 @@
 package com.educative.ecommerce.dto.cart;
 
-import com.educative.ecommerce.model.Cart;
-import com.educative.ecommerce.model.Product;
+public class CartItemDto extends CartDto {
+    private Integer userId;
 
-public class CartItemDto {
-    private Integer id;
-    private Integer quantity;
-    private Product product;
-
-    public CartItemDto() {
+    public Integer getUserId() {
+        return userId;
     }
 
-    public Integer getId() {
-        return id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
 }
