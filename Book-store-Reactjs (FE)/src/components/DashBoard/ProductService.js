@@ -8,7 +8,7 @@ class ProductService {
   }
 
   createProduct(product) {
-    return axios.post(PRODUCT_API_BASE_URL, product);
+    return axios.post("http://localhost:8080/product/add", product);
   }
 
   getProductById(productId) {
@@ -16,11 +16,14 @@ class ProductService {
   }
 
   updateProduct(product, productId) {
-    return axios.put(PRODUCT_API_BASE_URL + "/" + productId, product);
+    return axios.post(
+      `http://localhost:8080/product/update/${productId}`,
+      product
+    );
   }
 
   deleteProduct(productId) {
-    return axios.delete(PRODUCT_API_BASE_URL + "/" + productId);
+    return axios.delete(`http://localhost:8080/product/delete/${productId}`);
   }
 }
 

@@ -3,27 +3,25 @@ import { Typography, Button, Card, CardActions, CardContent, CardMedia } from '@
 
 import useStyles from './styles';
 
-const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
+const CartItem = ({ cartItem, onRemoveFromCart }) => {
   const classes = useStyles();
 
-  const handleUpdateCartQty = (lineItemId, newQuantity) => onUpdateCartQty(lineItemId, newQuantity);
-
-  const handleRemoveFromCart = (lineItemId) => onRemoveFromCart(lineItemId);
+  const handleRemoveFromCart = () => onRemoveFromCart(cartItem.id);
 
   return (
     <Card className="cart-item">
-      <CardMedia image={item.media.source} alt={item.name} className={classes.media} />
+      <CardMedia image={cartItem.imageUrl} alt={cartItem.name} className={classes.media} />
       <CardContent className={classes.cardContent}>
-        <Typography variant="h6">{item.name}</Typography>
-        <Typography variant="h6" color='secondary' >{item.line_total.formatted} đ</Typography>
+       <div className={classes.cardContent}>
+          <Typography variant="h9" noWrap>
+            <b noWrap>{cartItem.name}</b>
+          </Typography>
+
+          <b style={{ marginTop: "30px", color: "red" }} noWrap>{cartItem.price}đ</b>
+        </div>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <div className={classes.buttons}>
-          <Button type="button" size="small" onClick={() => handleUpdateCartQty(item.id, item.quantity - 1)}>-</Button>
-          <Typography>&nbsp;{item.quantity}&nbsp;</Typography>
-          <Button type="button" size="small" onClick={() => handleUpdateCartQty(item.id, item.quantity + 1)}>+</Button>
-        </div>
-        <Button className={classes.button} variant="contained" type="button" color='secondary' onClick={() => handleRemoveFromCart(item.id)}>Xóa</Button>
+        <Button className={classes.button} variant="contained" type="button" color='secondary' onClick={() => handleRemoveFromCart()}>Xóa</Button>
       </CardActions>
     </Card>
   );

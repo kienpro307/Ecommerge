@@ -17,11 +17,12 @@ import ListProductComponent from "./components/DashBoard/ListProductComponent";
 import CreateProductComponent from "./components/DashBoard/CreateProductComponent";
 import ViewProductComponent from "./components/DashBoard/ViewProductComponent";
 import OrderList from "./components/OrderList/OrderList";
+import axios from "axios";
 
 const App = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState({});
+  const [cart, setCart] = useState([]);
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [token, setToken] = useState("");
@@ -32,17 +33,22 @@ const App = () => {
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);
+        console.log(">>> data product:", data);
       })
       .catch(console.log);
   };
 
   const fetchCart = async () => {
-    await fetch(`http://localhost:8080/cart/cart-list?token=${token}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCart(data);
-      })
-      .catch(console.log);
+    try {
+      const response = await fetch(
+        `http://localhost:8080/cart/cart-list?token=${token}`
+      );
+      const data = await response.json();
+      setCart(data);
+      console.log(">>> data cart:", data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleAddToCart = async (productId) => {
@@ -63,27 +69,24 @@ const App = () => {
             "\n" +
             "Vui lòng đăng nhập để có thể đặt hàng"
         );
+      } else {
+        alert("Thêm vào giỏ hàng thành công!");
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleUpdateCartQty = async (lineItemId, quantity) => {
-    // const response = await commerce.cart.update(lineItemId, { quantity });
-    // setCart(response.cart);
-  };
-
-  const handleRemoveFromCart = async (lineItemId) => {};
-
-  const handleEmptyCart = async () => {
-    // const response = await commerce.cart.empty();
-    // setCart(response.cart);
-  };
-
-  const refreshCart = async () => {
-    // const newCart = await commerce.cart.refresh();
-    // setCart(newCart);
+  const handleRemoveFromCart = async (CartItemId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8080/cart/admin-delete/${CartItemId}`
+      );
+      console.log(response.data); // In ra thông tin mặt hàng đã xóa được
+      fetchCart();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleLogout = () => {
@@ -107,7 +110,7 @@ const App = () => {
   useEffect(() => {
     fetchProducts();
     fetchCart();
-  }, []);
+  }, [token]);
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
@@ -147,9 +150,7 @@ const App = () => {
                 <Cart
                   cart={cart}
                   token={token}
-                  onUpdateCartQty={handleUpdateCartQty}
                   onRemoveFromCart={handleRemoveFromCart}
-                  onEmptyCart={handleEmptyCart}
                 />
               </Route>
               <Route path="/checkout" exact>

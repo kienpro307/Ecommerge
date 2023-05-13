@@ -1,25 +1,26 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles(() => ({
   media: {
     height: 0,
-    paddingTop: '100%', 
+    paddingTop: "100%",
   },
   cardContent: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: "100%",
   },
   cartActions: {
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   buttons: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
   },
   button: {
-    color: 'white',
-    width: '100%',
-    height: '40px',
-
-},
+    color: "white",
+    width: "100%",
+    height: "40px",
+  },
 }));

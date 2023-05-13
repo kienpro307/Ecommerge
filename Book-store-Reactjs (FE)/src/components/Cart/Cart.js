@@ -5,10 +5,8 @@ import { Link } from "react-router-dom";
 import CartItem from "./CartItem/CartItem";
 import useStyles from "./styles";
 
-const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart, token }) => {
+const Cart = ({ cart, onRemoveFromCart }) => {
   const classes = useStyles();
-
-  const handleEmptyCart = () => onEmptyCart();
 
   const renderEmptyCart = () => (
     <Typography variant="subtitle1">
@@ -21,36 +19,21 @@ const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart, token }) =
     </Typography>
   );
 
-  if (!cart.line_items) return "Loading";
-
   const renderCart = () => (
     <>
       <Grid container spacing={4}>
-        {cart.line_items.map((lineItem) => (
-          <Grid item xs={12} sm={4} key={lineItem.id}>
-            <CartItem
-              item={lineItem}
-              onUpdateCartQty={onUpdateCartQty}
-              onRemoveFromCart={onRemoveFromCart}
-            />
+        {cart.map((cartItem) => (
+          <Grid item xs={12} sm={4} key={cartItem.id}>
+            <CartItem cartItem={cartItem} onRemoveFromCart={onRemoveFromCart} />
           </Grid>
         ))}
       </Grid>
       <div className={classes.cardDetails}>
         <Typography variant="h5">
-          Tổng giá tiền: <b>{cart.subtotal.formatted} đ</b>
+          Tổng giá tiền:{" "}
+          <b>{cart.reduce((acc, curr) => acc + curr.price, 0)} đ</b>
         </Typography>
         <div>
-          <Button
-            className={classes.emptyButton}
-            size="large"
-            type="button"
-            variant="contained"
-            color="secondary"
-            onClick={handleEmptyCart}
-          >
-            Xóa giỏ hàng
-          </Button>
           <Button
             className={classes.checkoutButton}
             component={Link}
@@ -58,6 +41,7 @@ const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart, token }) =
             size="large"
             type="button"
             variant="contained"
+            style={{ backgroundColor: "#24729e" }}
           >
             Thanh toán
           </Button>
@@ -73,7 +57,7 @@ const Cart = ({ cart, onUpdateCartQty, onRemoveFromCart, onEmptyCart, token }) =
         <b>Giỏ hàng của bạn</b>
       </Typography>
       <hr />
-      {!cart.line_items.length ? renderEmptyCart() : renderCart()}
+      {cart.length === 0 ? renderEmptyCart() : renderCart()}
     </Container>
   );
 };
