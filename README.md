@@ -6,3 +6,10 @@ Sử dụng Intellij Idea để tạo 1 project Maven qua việc import file eco
 ## Cài đặt frontend
 * Cài đặt NodeJS
 * Vào file Book-store-Reactjs (FE) chạy lệnh
+```
+npm install
+```
+Sau khi node đã tải xong các thư viện, chạy tiếp lệnh
+```
+npm start
+```
