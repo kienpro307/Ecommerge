@@ -1,33 +1,31 @@
 package com.educative.ecommerce.dto.cart;
 
 public class CartItemDto extends CartDto {
-    private String name;
-    private String address;
-    private Integer phoneNumber;
+    private String userFullName;
+    private String userAddress;
+    private Integer userPhoneNumber;
 
-    @Override
-    public String getName() {
-        return name;
+    public String getUserFullName() {
+        return userFullName;
     }
 
-    @Override
-    public void setName(String name) {
-        this.name = name;
+    public void setUserFullName(String userFullName) {
+        this.userFullName = userFullName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getUserAddress() {
+        return userAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
     }
 
-    public Integer getPhoneNumber() {
-        return phoneNumber;
+    public Integer getUserPhoneNumber() {
+        return userPhoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setUserPhoneNumber(Integer userPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
     }
 }

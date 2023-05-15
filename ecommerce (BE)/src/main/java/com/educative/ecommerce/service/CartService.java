@@ -75,9 +75,9 @@ public class CartService {
             cartItemDto.setIsBought(cart.getIsBought());
 
             User userThisCart = cart.getUser();
-            cartItemDto.setName(userThisCart.getFirstName() + " " + userThisCart.getLastName());
-            cartItemDto.setAddress(userThisCart.getAddress());
-            cartItemDto.setPhoneNumber(userThisCart.getPhoneNumber());
+            cartItemDto.setUserFullName(userThisCart.getFirstName() + " " + userThisCart.getLastName());
+            cartItemDto.setUserAddress(userThisCart.getAddress());
+            cartItemDto.setUserPhoneNumber(userThisCart.getPhoneNumber());
 
             cartItemDtoList.add(cartItemDto);
         }
@@ -99,9 +99,9 @@ public class CartService {
             cartItemDto.setIsBought(cart.getIsBought());
 
             User userThisCart = cart.getUser();
-            cartItemDto.setName(userThisCart.getFirstName() + " " + userThisCart.getLastName());
-            cartItemDto.setAddress(userThisCart.getAddress());
-            cartItemDto.setPhoneNumber(userThisCart.getPhoneNumber());
+            cartItemDto.setUserFullName(userThisCart.getFirstName() + " " + userThisCart.getLastName());
+            cartItemDto.setUserAddress(userThisCart.getAddress());
+            cartItemDto.setUserPhoneNumber(userThisCart.getPhoneNumber());
 
             cartItemDtoList.add(cartItemDto);
         }
