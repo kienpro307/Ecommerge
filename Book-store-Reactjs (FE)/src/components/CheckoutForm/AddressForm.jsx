@@ -58,7 +58,6 @@ const AddressForm = ({ checkoutToken, test }) => {
             <FormInput required name="address1" label="Địa chỉ" />
             <FormInput required name="email" label="Email" />
             <FormInput required name="city" label="Thành phố" />
-            <FormInput required name="zip" label="Mã bưu chính" />
             <Grid item xs={12} sm={6}>
               
               
@@ -77,3 +76,8 @@ const AddressForm = ({ checkoutToken, test }) => {
 };
 
 export default AddressForm;
+
+
+M: nodde 3 code -> docker: 
+
+Bạn m: node 4 -> docker do

@@ -121,7 +121,7 @@ const App = () => {
     <div>
       <div
         className="wrapper"
-        style={{ minHeight: "100vh", marginBottom: "100px" }}
+        style={{ maxHeight: "100vh", marginBottom: "100px" }}
       >
         <Router>
           <div style={{ display: "flex" }}>

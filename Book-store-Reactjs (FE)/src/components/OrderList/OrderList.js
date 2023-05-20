@@ -37,9 +37,10 @@ class OrderList extends Component {
               <tr>
                 <th> Tên sách</th>
                 <th> Ảnh sản phẩm</th>
-                <th> Ghi chú</th>
-                <th> Mã khách hàng</th>
                 <th> Giá</th>
+                <th> Tên khách hàng</th>
+                <th> Địa chỉ</th>
+                <th> Số điện thoại</th>
                 <th> Thao tác</th>
               </tr>
             </thead>
@@ -50,9 +51,10 @@ class OrderList extends Component {
                   <td>
                     <img src={order.imageUrl} alt={order.name} />
                   </td>
-                  <td> {order.description}</td>
-                  <td> {order.user}</td>
                   <td> {order.price}</td>
+                  <td> {order.userFullName}</td>
+                  <td> {order.userAddress}</td>
+                  <td> {"0" + order.userPhoneNumber}</td>
                   <td>
                     <button
                       onClick={() => this.deleteOrder(order.id)}
